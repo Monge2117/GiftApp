@@ -1,14 +1,28 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-lazy-image',
-  standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  selector: 'shared-lazy-image',
   templateUrl: './LazyImage.component.html',
   styleUrl: './LazyImage.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LazyImageComponent { }
+export class LazyImageComponent implements OnInit {
+  @Input()
+  Url!:string
+
+  @Input()
+  alt:string = ''
+
+  public hasLoaded:boolean = false;
+
+  loading(){
+    this.hasLoaded = true;
+  }
+  ngOnInit(): void {
+    if (!this.Url) {
+      throw new Error('url es obligatorio');
+
+    }
+  }
+
+
+}
